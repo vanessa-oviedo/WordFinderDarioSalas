@@ -5,7 +5,7 @@ using WordFinderDarioSalas;
 namespace WordFinderTests
 {
     [TestClass]
-    public class WordFinderDarioSalasTest
+    public partial class WordFinderDarioSalasTest
     {
         [TestMethod]
         public void Find_ReturnsEmpty_WhenNoWordsAreFound()
