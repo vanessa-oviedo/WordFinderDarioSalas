@@ -36,4 +36,24 @@ public class Trie
 
         return currentNode.IsEndOfWord;
     }
+
+    public void PrintTrieNodes()
+    {
+        PrintTrieNodes(_root, "");
+    }
+
+    private void PrintTrieNodes(TrieNode node, string prefix)
+    {
+        // If the current node is the end of a word, print the word
+        if (node.IsEndOfWord)
+        {
+            Console.WriteLine(prefix);
+        }
+
+        // Recursively print all the child nodes
+        foreach (var child in node.Children)
+        {
+            PrintTrieNodes(child.Value, prefix + child.Key);
+        }
+    }
 }

@@ -5,7 +5,7 @@ public class WordFinder
     private readonly char[,] _matrix;
     private readonly int _rows;
     private readonly int _cols;
-    private readonly Trie _trie = new Trie();
+    private readonly Trie _trie = new();
 
     public WordFinder(IEnumerable<string> matrix)
     {
