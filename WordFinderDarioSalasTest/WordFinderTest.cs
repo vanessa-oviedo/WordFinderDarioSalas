@@ -141,5 +141,33 @@ namespace WordFinderTests
             // Assert
             result.Should().BeEquivalentTo(new[] { "cd", "at" });
         }
+
+        [TestMethod]
+        public void Find_ReturnsTop10MostRepeatedWords()
+        {
+            // Arrange
+            var matrix = new List<string>
+            {
+                "hello",
+                "world",
+                "winds",
+                "winds",
+                "hello",
+                "chill"
+            };
+
+            var wordStream = new List<string>
+            {
+                "wind", "cold", "chill", "hello", "world", "wind", "wind", "hello", "cold"
+            };
+
+            var wordFinder = new WordFinder(matrix);
+
+            // Act
+            var result = wordFinder.Find(wordStream);
+
+            // Assert
+            result.Should().BeEquivalentTo(new[] { "wind", "hello", "chill", "world" });
+        }
     }
 }

@@ -8,7 +8,6 @@
 
         public WordFinder(IEnumerable<string> matrix)
         {
-            // Initialize the matrix and its dimensions
             var matrixList = matrix.ToList();
             _rows = matrixList.Count;
             _cols = matrixList.FirstOrDefault()?.Length ?? 0;
@@ -28,33 +27,41 @@
 
         public IEnumerable<string> Find(IEnumerable<string> wordstream)
         {
-            var wordSet = new HashSet<string>(wordstream);
-            var foundWords = new HashSet<string>();     
+            // Contador para contar las repeticiones de cada palabra
             var wordCounts = new Dictionary<string, int>();
 
-            foreach (var word in wordSet)
+            foreach (var word in wordstream)
             {
+                // Verifica si la palabra existe en la matriz
                 if (ExistsInMatrix(word))
                 {
-                    foundWords.Add(word);
-                    wordCounts[word] = wordCounts.GetValueOrDefault(word, 0) + 1;
+                    // Si la palabra ya está en el diccionario, aumenta el contador
+                    if (!wordCounts.ContainsKey(word))
+                    {
+                        wordCounts[word] = 0;
+                    }
+
+                    wordCounts[word]++;
                 }
             }
 
+            // Devuelve las 10 palabras más repetidas, ordenadas por cantidad de repeticiones y alfabéticamente
             return wordCounts
-                .OrderByDescending(kvp => kvp.Value)
-                .ThenBy(kvp => kvp.Key)
-                .Take(10)
+                .OrderByDescending(kvp => kvp.Value)   // Ordenar por cantidad de repeticiones
+                .ThenBy(kvp => kvp.Key)                // Ordenar alfabéticamente en caso de empate
+                .Take(10)                              // Toma solo las 10 más repetidas
                 .Select(kvp => kvp.Key);
         }
 
         private bool ExistsInMatrix(string word)
         {
+            // Recorre las filas horizontalmente
             for (int i = 0; i < _rows; i++)
             {
                 if (SearchHorizontally(i, word)) return true;
             }
 
+            // Recorre las columnas verticalmente
             for (int j = 0; j < _cols; j++)
             {
                 if (SearchVertically(j, word)) return true;
