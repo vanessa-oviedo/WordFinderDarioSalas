@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace WordFinderDarioSalas
+﻿namespace WordFinderDarioSalas
 {
     public class WordFinder
     {
@@ -32,8 +28,8 @@ namespace WordFinderDarioSalas
 
         public IEnumerable<string> Find(IEnumerable<string> wordstream)
         {
-            var wordSet = new HashSet<string>(wordstream); // Avoid duplicate checks
-            var foundWords = new HashSet<string>();       // Store found words
+            var wordSet = new HashSet<string>(wordstream);
+            var foundWords = new HashSet<string>();     
             var wordCounts = new Dictionary<string, int>();
 
             foreach (var word in wordSet)
@@ -54,7 +50,6 @@ namespace WordFinderDarioSalas
 
         private bool ExistsInMatrix(string word)
         {
-            // Check horizontally and vertically
             for (int i = 0; i < _rows; i++)
             {
                 if (SearchHorizontally(i, word)) return true;
